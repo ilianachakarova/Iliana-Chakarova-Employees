@@ -3,20 +3,16 @@ import com.example.ilianachakarovaemployees.model.EmployeeDTO;
 import io.micrometer.common.util.StringUtils;
 import java.io.*;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CsvFileToDTOConverter <V> {
-
-    private static final String PATTERN_1 = "yyyy-MM-dd";
     private static final String BASE_ERROR_MSG = "Input data is incorrect\r\n";
-    private static final String REGEX_PATTERN_1 = "^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$";
-    DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern(PATTERN_1);
 
     public List<V> convert(InputStream stream, Class<V> outputClass) throws Exception {
         List<V> result = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+
         String line = null;
         while ((line = reader.readLine()) != null) {
             if (outputClass != null) {
@@ -34,11 +30,11 @@ public class CsvFileToDTOConverter <V> {
 
             long employeeId = Long.parseLong(props[0]);
             long projectId = Long.parseLong(props[1]);
-            LocalDate dateFrom = LocalDate.parse(props[2], formatter1);
+            LocalDate dateFrom = DateUtil.parseDate(props[2]);
 
             LocalDate dateTo = LocalDate.now();
             if (props.length == 4 && !StringUtils.isEmpty(props[3])) {
-                dateTo = LocalDate.parse(props[3], formatter1);
+                dateTo = DateUtil.parseDate(props[3]);
             }
 
             EmployeeDTO employeeDTO = new EmployeeDTO(employeeId, projectId, dateFrom, dateTo);
@@ -67,10 +63,10 @@ public class CsvFileToDTOConverter <V> {
         if(StringUtils.isEmpty(dateFrom)){
             message.append("Missing project start date\r\n");
         }
-        if(!dateFrom.matches(REGEX_PATTERN_1)){
+        if(!dateFrom.matches(DateUtil.DATE_REGEX1) && !dateFrom.matches(DateUtil.DATE_REGEX2) && !dateFrom.matches(DateUtil.DATE_REGEX3) && !dateFrom.matches(DateUtil.DATE_REGEX4)){
             message.append("Incorrect format for start date\r\n");
         }
-        if(!StringUtils.isEmpty(dateTo) && !dateTo.matches(REGEX_PATTERN_1)){
+        if(!StringUtils.isEmpty(dateTo) && !dateTo.matches(DateUtil.DATE_REGEX1) && !dateTo.matches(DateUtil.DATE_REGEX2) && !dateTo.matches(DateUtil.DATE_REGEX3) && !dateTo.matches(DateUtil.DATE_REGEX4)){
             message.append("Incorrect format for end date\r\n");
         }
 

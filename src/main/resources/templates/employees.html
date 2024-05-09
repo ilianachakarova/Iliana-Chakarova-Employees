@@ -15,7 +15,7 @@
 
 <body>
 <div class="container" style="max-width: 500px">
-    <h3 class="mb-3">Select and upload a CVS file</h3>
+    <h3 class="mb-3">Select a CSV file and calculate the result</h3>
     <form
             id="uploadForm"
             method="post"
@@ -23,7 +23,7 @@
             enctype="multipart/form-data">
         <input id="input-file" type="file" name="file" />
         <button class="btn btn-sm btn-outline-success float-right" type="submit">
-            Upload
+            Calculate
         </button>
     </form>
     <div class="row mt-4 mx-auto d-flex flex-row justify-content-center">
@@ -49,8 +49,7 @@
             </tbody>
         </table>
     </div>
-    <div
-            th:if="${message != null}"
+    <div th:if="${message != null}"
             class="alert alert-secondary alert-dismissible fade show text-center message mt-3"
             role="alert">
         [[${message}]]

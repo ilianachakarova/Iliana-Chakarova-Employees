@@ -45,7 +45,7 @@ public class FileManagerServiceImpl implements FileManagerService{
             EmployeeDTO employee1 = converted.get(i);
             for (int j = 0; j <= converted.size() - 1; j++) {
                 EmployeeDTO employee2 = converted.get(j);
-                if (employee1.getProjectId() == employee2.getProjectId()) {
+                if (employee1.getProjectId() == employee2.getProjectId() && employee1.getEmployeeId() != employee2.getEmployeeId()) {
                     LocalDate startCollaboration = employee1.getDateFrom().isAfter(employee2.getDateFrom()) ? employee1.getDateFrom() : employee2.getDateFrom();
                     LocalDate endCollaboration = employee1.getDateTo().isBefore(employee2.getDateTo()) ? employee1.getDateTo() : employee2.getDateTo();
                     long difference = endCollaboration.toEpochDay() - startCollaboration.toEpochDay();
@@ -55,7 +55,6 @@ public class FileManagerServiceImpl implements FileManagerService{
                         nomenee2 = employee2;
                         projectId = employee1.getProjectId();
                     }
-
                 }
             }
         }

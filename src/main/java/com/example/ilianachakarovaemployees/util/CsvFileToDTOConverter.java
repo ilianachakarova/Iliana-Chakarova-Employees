@@ -10,7 +10,7 @@ import java.util.List;
 public class CsvFileToDTOConverter <V> {
 
     private static final String PATTERN_1 = "yyyy-MM-dd";
-    private static final String BASE_ERROR_MSG = "Input data is incorrect";
+    private static final String BASE_ERROR_MSG = "Input data is incorrect\r\n";
     private static final String REGEX_PATTERN_1 = "^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$";
     DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern(PATTERN_1);
 
@@ -35,6 +35,7 @@ public class CsvFileToDTOConverter <V> {
             long employeeId = Long.parseLong(props[0]);
             long projectId = Long.parseLong(props[1]);
             LocalDate dateFrom = LocalDate.parse(props[2], formatter1);
+
             LocalDate dateTo = LocalDate.now();
             if (props.length == 4 && !StringUtils.isEmpty(props[3])) {
                 dateTo = LocalDate.parse(props[3], formatter1);
@@ -58,19 +59,19 @@ public class CsvFileToDTOConverter <V> {
         }
 
         if(StringUtils.isEmpty(employeeId)){
-            message.append("Missing employerID /n/r");
+            message.append("Missing employerID\r\n");
         }
         if(StringUtils.isEmpty(projectId)){
-            message.append("Missing projectID /n/r");
+            message.append("Missing projectID\r\n");
         }
         if(StringUtils.isEmpty(dateFrom)){
-            message.append("Missing project start date /n/r");
+            message.append("Missing project start date\r\n");
         }
         if(!dateFrom.matches(REGEX_PATTERN_1)){
-            message.append("Incorrect format for start date /n/r");
+            message.append("Incorrect format for start date\r\n");
         }
         if(!StringUtils.isEmpty(dateTo) && !dateTo.matches(REGEX_PATTERN_1)){
-            message.append("Incorrect format for end date /n/r");
+            message.append("Incorrect format for end date\r\n");
         }
 
         if(!message.toString().equals(BASE_ERROR_MSG)){

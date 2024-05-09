@@ -26,8 +26,7 @@
             Upload
         </button>
     </form>
-
-    <div class="row mx-auto d-flex flex-row justify-content-center">
+    <div class="row mt-4 mx-auto d-flex flex-row justify-content-center">
         <table class="table table-bordered table-striped">
             <thead>
             <tr>
@@ -41,7 +40,7 @@
             <tr th:if="${result == null}">
                 <td colspan="4">No data</td>
             </tr>
-            <tr>
+            <tr th:if="${message == null}">
                 <td th:text="${result.employee1Id}"></td>
                 <td th:text="${result.employee2Id}"></td>
                 <td th:text="${result.projectId}"></td>
@@ -50,9 +49,6 @@
             </tbody>
         </table>
     </div>
-
-
-
     <div
             th:if="${message != null}"
             class="alert alert-secondary alert-dismissible fade show text-center message mt-3"

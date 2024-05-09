@@ -15,8 +15,7 @@
 
 <body>
 <div class="container" style="max-width: 500px">
-    <h3 class="mb-3">Select and upload a CVS file </h3>
-<div>
+    <h3 class="mb-3">Select and upload a CVS file</h3>
     <form
             id="uploadForm"
             method="post"
@@ -27,9 +26,42 @@
             Upload
         </button>
     </form>
-</div>
+
+    <div class="row mx-auto d-flex flex-row justify-content-center">
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <td>Employee ID #1</td>
+                <td>Employee ID #2</td>
+                <td>Project ID</td>
+                <td>Days worked</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${result == null}">
+                <td colspan="4">No data</td>
+            </tr>
+            <tr>
+                <td th:text="${result.employee1Id}"></td>
+                <td th:text="${result.employee2Id}"></td>
+                <td th:text="${result.projectId}"></td>
+                <td th:text="${result.longestCollaborationInDays}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
 
+
+    <div
+            th:if="${message != null}"
+            class="alert alert-secondary alert-dismissible fade show text-center message mt-3"
+            role="alert">
+        [[${message}]]
+        <button type="button" class="close btn-sm" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
 </div>
 </body>
 

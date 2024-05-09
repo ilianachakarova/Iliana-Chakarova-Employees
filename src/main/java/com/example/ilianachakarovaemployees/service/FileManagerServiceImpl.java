@@ -20,20 +20,9 @@ import java.util.stream.Stream;
 @Service
 @Log4j2
 public class FileManagerServiceImpl implements FileManagerService{
-    private final Path root = Paths.get("./uploads");
-
 
     @Override
-    public void init() {
-        try {
-            Files.createDirectories(root);
-        } catch (IOException e) {
-            throw new RuntimeException("Could not initialize folder for upload!");
-        }
-    }
-
-    @Override
-    public ResultDTO save(MultipartFile file) {
+    public ResultDTO handleFile(MultipartFile file) {
         CsvFileToDTOConverter<EmployeeDTO> converter = new CsvFileToDTOConverter<>();
         try{
             InputStream inputStream = file.getInputStream();
@@ -71,20 +60,5 @@ public class FileManagerServiceImpl implements FileManagerService{
             }
         }
         return new ResultDTO(longestCollaborationInDays, nomenee1.getEmployeeId(), nomenee2.getEmployeeId(),projectId);
-    }
-
-    @Override
-    public Resource load(String filename) {
-        return null;
-    }
-
-    @Override
-    public void deleteAll() {
-
-    }
-
-    @Override
-    public Stream<Path> loadAll() {
-        return null;
     }
 }

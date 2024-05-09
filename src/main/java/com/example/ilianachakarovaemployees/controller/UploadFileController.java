@@ -31,10 +31,10 @@ public class UploadFileController {
     @PostMapping("/employees")
     public String fileUpload(MultipartFile file, Model model) {
         try {
-            ResultDTO result =  fileManagerService.save(file);
+            ResultDTO result =  fileManagerService.handleFile(file);
             model.addAttribute("result",result);
         } catch (Exception e) {
-            model.addAttribute("message",e.getLocalizedMessage());
+            model.addAttribute("message",e.getMessage());
         }
 
         return "employees";

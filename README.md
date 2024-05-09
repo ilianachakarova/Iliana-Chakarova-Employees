@@ -10,3 +10,8 @@ If the data is valid, the program finds the pair of employees who worked togethe
 and displays the workers' ids, the project id and the days they worked on that project in a table.
 
 Sample test files with valid data could be found in the project in the folder testFiles.
+
+Supported date formats:
+
+"yyyy-MM-dd", "dd/MM/yyyy","dd-MM-yyyy","dd/MM/yy","yyyyMMdd","yyyy/MM/dd"
+  
